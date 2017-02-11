@@ -1,0 +1,2 @@
+# Standard giveth campaign
+
