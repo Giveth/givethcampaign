@@ -24,7 +24,7 @@ pragma solidity ^0.4.6;
 ///  funds for non-profit causes, but it can be customized for any variety of
 ///  purposes.
 
-import "MiniMeToken.sol";
+import "../node_modules/minimetoken/contracts/MiniMeToken.sol";
 
 
 /// @dev `Owned` is a base level contract that assigns an `owner` that can be
@@ -52,7 +52,7 @@ contract Owned {
 ///  non-profit Campaign. This contract effectively dictates the terms of the
 ///  funding round.
 
-contract Campaign is TokenController, Owned {
+contract GivethCampaign is TokenController, Owned {
 
     uint public startFundingTime;       // In UNIX Time Format
     uint public endFundingTime;         // In UNIX Time Format
@@ -61,7 +61,7 @@ contract Campaign is TokenController, Owned {
     MiniMeToken public tokenContract;   // The new token for this Campaign
     address public vaultAddress;        // The address to hold the funds donated
 
-/// @notice 'Campaign()' initiates the Campaign by setting its funding
+/// @notice 'GivethCampaign()' initiates the Campaign by setting its funding
 /// parameters
 /// @dev There are several checks to make sure the parameters are acceptable
 /// @param _startFundingTime The UNIX time that the Campaign will be able to
@@ -73,7 +73,7 @@ contract Campaign is TokenController, Owned {
 /// @param _vaultAddress The address that will store the donated funds
 /// @param _tokenAddress Address of the token contract this contract controls
 
-    function Campaign(
+    function GivethCampaign(
         uint _startFundingTime,
         uint _endFundingTime,
         uint _maximumFunding,
