@@ -36,10 +36,10 @@ var GivethCampaign = function () {
 
     _createClass(GivethCampaign, [{
         key: "getState",
-        value: function getState(cb) {
+        value: function getState(_cb) {
             var _this = this;
 
-            var promise = new Promise(function (resolve, reject) {
+            return (0, _runethtx.asyncfunc)(function (cb) {
                 var st = {};
                 _async2.default.series([function (cb1) {
                     _this.contract.owner(function (err, _owner) {
@@ -67,37 +67,22 @@ var GivethCampaign = function () {
                     });
                 }], function (err2) {
                     if (err2) {
-                        reject(err2);
+                        cb(err2);
                     } else {
-                        resolve(st);
+                        cb(null, st);
                     }
                 });
-            });
-
-            if (cb) {
-                promise.then(function (value) {
-                    cb(null, value);
-                }, function (reason) {
-                    cb(reason);
-                });
-            } else {
-                return promise;
-            }
+            }, _cb);
         }
     }, {
         key: "donate",
         value: function donate(opts, cb) {
-            var params = Object.assign({}, opts, {
-                contract: this.contract,
-                method: "proxyPayment",
-                extraGas: 50000
-            });
-            return (0, _runethtx.send)(params, cb);
+            return (0, _runethtx.sendContractTx)(this.web3, this.contract, "proxyPayment", opts, cb);
         }
     }], [{
         key: "deploy",
-        value: function deploy(web3, opts, cb) {
-            var promise = new Promise(function (resolve, reject) {
+        value: function deploy(web3, opts, _cb) {
+            return (0, _runethtx.asyncfunc)(function (cb) {
                 var params = Object.assign({}, opts);
                 var miniMeToken = void 0;
                 var givethCampaign = void 0;
@@ -149,22 +134,12 @@ var GivethCampaign = function () {
                     }, cb1);
                 }], function (err) {
                     if (err) {
-                        reject(err);
+                        cb(err);
                         return;
                     }
-                    resolve(givethCampaign);
+                    cb(null, givethCampaign);
                 });
-            });
-
-            if (cb) {
-                promise.then(function (value) {
-                    cb(null, value);
-                }, function (reason) {
-                    cb(reason);
-                });
-            } else {
-                return promise;
-            }
+            }, _cb);
         }
     }]);
 

@@ -1,5 +1,5 @@
 import async from "async";
-import { deploy, send } from "runethtx";
+import { deploy, sendContractTx, asyncfunc } from "runethtx";
 import MiniMeToken from "minimetoken";
 import Vault from "vaultcontract";
 import {
@@ -14,8 +14,8 @@ export default class GivethCampaign {
         this.contract = this.web3.eth.contract(GivethCampaignAbi).at(address);
     }
 
-    getState(cb) {
-        const promise = new Promise((resolve, reject) => {
+    getState(_cb) {
+        return asyncfunc((cb) => {
             const st = {};
             async.series([
                 (cb1) => {
@@ -41,28 +41,16 @@ export default class GivethCampaign {
                 },
             ], (err2) => {
                 if (err2) {
-                    reject(err2);
+                    cb(err2);
                 } else {
-                    resolve(st);
+                    cb(null, st);
                 }
             });
-        });
-
-        if (cb) {
-            promise.then(
-                (value) => {
-                    cb(null, value);
-                },
-                (reason) => {
-                    cb(reason);
-                });
-        } else {
-            return promise;
-        }
+        }, _cb);
     }
 
-    static deploy(web3, opts, cb) {
-        const promise = new Promise((resolve, reject) => {
+    static deploy(web3, opts, _cb) {
+        return asyncfunc((cb) => {
             const params = Object.assign({}, opts);
             let miniMeToken;
             let givethCampaign;
@@ -121,33 +109,21 @@ export default class GivethCampaign {
             ],
             (err) => {
                 if (err) {
-                    reject(err);
+                    cb(err);
                     return;
                 }
-                resolve(givethCampaign);
+                cb(null, givethCampaign);
             });
-        });
-
-        if (cb) {
-            promise.then(
-                (value) => {
-                    cb(null, value);
-                },
-                (reason) => {
-                    cb(reason);
-                });
-        } else {
-            return promise;
-        }
+        }, _cb);
     }
 
     donate(opts, cb) {
-        const params = Object.assign({}, opts, {
-            contract: this.contract,
-            method: "proxyPayment",
-            extraGas: 50000,
-        });
-        return send(params, cb);
+        return sendContractTx(
+            this.web3,
+            this.contract,
+            "proxyPayment",
+            opts,
+            cb);
     }
 
 }
