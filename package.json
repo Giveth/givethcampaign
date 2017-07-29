@@ -1,6 +1,6 @@
 {
   "name": "givethcampaign",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Standard giveth campaign",
   "main": "dist/givethcampaign.js",
   "scripts": {
@@ -29,7 +29,7 @@
     "lodash": "^4.17.4",
     "minimetoken": "^0.1.4",
     "runethtx": "0.0.6",
-    "vaultcontract": "0.2.15"
+    "vaultcontract": "0.2.20"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
