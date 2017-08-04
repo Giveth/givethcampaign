@@ -25,6 +25,7 @@ pragma solidity ^0.4.6;
 ///  purposes.
 
 import "../node_modules/minimetoken/contracts/MiniMeToken.sol";
+import "./ERC20Token.sol";
 
 
 /// @dev `Owned` is a base level contract that assigns an `owner` that can be
@@ -214,5 +215,8 @@ contract GivethCampaign is TokenController, Owned {
         token.transfer(owner, balance);
         ClaimedTokens(_token, owner, balance);
     }
+
+    event ClaimedTokens(address indexed _token, address indexed _controller, uint256 _amount);
+
 
 }

@@ -1,6 +1,6 @@
 {
   "name": "givethcampaign",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Standard giveth campaign",
   "main": "dist/givethcampaign.js",
   "scripts": {
@@ -27,7 +27,7 @@
     "bignumber.js": "^4.0.0",
     "ethconnector": "0.0.24",
     "lodash": "^4.17.4",
-    "minimetoken": "^0.1.4",
+    "minimetoken": "^0.1.6",
     "runethtx": "0.0.6",
     "vaultcontract": "0.2.20"
   },
